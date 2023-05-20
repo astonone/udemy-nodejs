@@ -17,10 +17,25 @@ const saveProperty = async (key, value, propName) => {
     }
 };
 
+const getForecast = async () => {
+    try {
+        const weather = await getWeather();
+        console.log(weather);
+    } catch (e) {
+        if (e?.response?.status === 404) {
+            printError('Saved city is incorrect, getting of the forecast is impossible');
+        } else if (e?.response?.status === 401) {
+            printError('Saved token is incorrect, getting of the forecast is impossible');
+        } else {
+            printError(e.message);
+        }
+    }
+};
+
 const initCli = () => {
     const args = getArgs(process.argv);
     if (args.h) {
-        printHelp();
+        return printHelp();
     }
     if (args.c) {
         return saveProperty(TOKEN_DICTIONARY.city, args.c, 'City');
@@ -31,7 +46,7 @@ const initCli = () => {
     if (args.l) {
         return saveProperty(TOKEN_DICTIONARY.lang, args.l, 'Language');
     }
-    getWeather();
+    return getForecast();
 };
 
 initCli();
