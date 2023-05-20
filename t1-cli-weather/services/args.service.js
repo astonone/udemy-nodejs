@@ -1,4 +1,4 @@
-// in future replace self-made parser to lib:https://www.npmjs.com/package/yargs
+// TODO in future replace self-made parser to lib:https://www.npmjs.com/package/yargs both with migration to typescript
 const getArgs = (args) => {
     const res = {};
     const [executer, file, ...rest] = args;
