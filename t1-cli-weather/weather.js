@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 import {getArgs} from './services/args.service.js';
-import {printError, printHelp, printSuccess} from './services/log.service.js';
+import {printError, printHelp, printSuccess, printWeatherPretty} from './services/log.service.js';
 import {saveKeyValue, TOKEN_DICTIONARY} from "./services/storage.service.js";
-import {getWeather} from "./services/openweather-api.service.js";
+import {getWeather} from "./services/api.service.js";
 
 const saveProperty = async (key, value, propName) => {
     if (!key.length) {
@@ -20,7 +20,7 @@ const saveProperty = async (key, value, propName) => {
 const getForecast = async () => {
     try {
         const weather = await getWeather();
-        console.log(weather);
+        printWeatherPretty(weather);
     } catch (e) {
         if (e?.response?.status === 404) {
             printError('Saved city is incorrect, getting of the forecast is impossible');
@@ -42,9 +42,6 @@ const initCli = () => {
     }
     if (args.t) {
         return saveProperty(TOKEN_DICTIONARY.token, args.t, 'Token');
-    }
-    if (args.l) {
-        return saveProperty(TOKEN_DICTIONARY.lang, args.l, 'Language');
     }
     return getForecast();
 };

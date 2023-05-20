@@ -4,9 +4,8 @@ import {promises} from 'fs';
 
 const TOKEN_DICTIONARY = {
     token: 'token',
-    city: 'city',
-    lang: 'lang'
-};
+    city: 'city'
+}
 
 const appStorageFilePath = join(homedir(), 'weather-data.json');
 
@@ -19,7 +18,7 @@ const saveKeyValue = async (key, value) => {
 
     data[key] = value;
     await promises.writeFile(appStorageFilePath, JSON.stringify(data));
-};
+}
 
 const getKeyValue = async (key) => {
     if (await isExist(appStorageFilePath)) {
@@ -45,7 +44,6 @@ const isExist = async (path) => {
     } catch (e) {
         return false;
     }
-
-};
+}
 
 export {saveKeyValue, getKeyValue, getAllKeyValue, TOKEN_DICTIONARY};
