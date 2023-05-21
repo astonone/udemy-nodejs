@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import dedent from "dedent-js";
-import {getIcon} from "./api.service.js";
+import {convertMetersToKilometers, convertPressureFromHPaToMmHg, getIcon, getWindDirection} from "./api.service.js";
 
 const printError = (error) => {
     console.log(chalk.bgRed('ERROR') + ' ' + error);
@@ -20,11 +20,15 @@ const printHelp = () => {
 }
 
 const printWeatherPretty = (data) => {
-    console.log(dedent(`${chalk.bgYellow(' WEATHER FORECAST')} Weather in ${data.name}
+    console.log(dedent(`${chalk.bgYellow(' WEATHER FORECAST ')} Weather in ${data.name}
     ${getIcon(data.weather[0].icon)} ${data.weather[0].description}
-    Temperature: ${data.main.temp} (feels like ${data.main.feels_like})
+    Temperature: ${data.main.temp}°C (feels like ${data.main.feels_like}°C)
     Humidity: ${data.main.humidity}%
+    Clouds: ${data.clouds.all}%
     Wind speed: ${data.wind.speed} m/s
+    Wind direction: ${getWindDirection(data.wind.deg)}
+    Pressure: ${convertPressureFromHPaToMmHg(data.main.pressure)} mm Hg
+    Visibility: ${convertMetersToKilometers(data.visibility)}Km
     `));
 }
 

@@ -1,6 +1,19 @@
 import {getAllKeyValue} from "./storage.service.js";
 import axios from "axios";
 
+const convertMetersToKilometers = (m) => {
+    return m / 1000;
+}
+
+const getWindDirection = (angle) => {
+    const directions = ['↓ N', '↙ NE', '← E', '↖ SE', '↑ S', '↗ SW', '→ W', '↘ NW'];
+    return directions[Math.round(angle / 45) % 8];
+}
+
+const convertPressureFromHPaToMmHg = (pressure) => {
+    return Math.round(pressure / 1.33);
+};
+
 const getIcon = (icon) => {
     switch (icon.slice(0, -1)) {
         case '01':
@@ -44,4 +57,10 @@ const getWeather = async () => {
     return data;
 }
 
-export {getWeather, getIcon};
+export {
+    getWeather,
+    getIcon,
+    convertPressureFromHPaToMmHg,
+    getWindDirection,
+    convertMetersToKilometers
+};
