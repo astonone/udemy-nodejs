@@ -1,0 +1,20 @@
+{
+  "name": "dashboard-api",
+  "version": "1.0.0",
+  "description": "API for learning project for NodeJS",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astonone/udemy-nodejs.git"
+  },
+  "author": "Viktor Kulygin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/astonone/udemy-nodejs/issues"
+  },
+  "homepage": "https://github.com/astonone/udemy-nodejs#readme"
+}
