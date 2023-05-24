@@ -1,11 +1,11 @@
-import { BaseController } from '../common/base.controller.js';
+import { BaseController } from '../common/base.controller';
 import { NextFunction, Request, Response } from 'express';
-import { HttpError } from '../errors/http-error.class.js';
+import { HttpError } from '../errors/http-error.class';
 import { inject, injectable } from 'inversify';
-import { TYPES } from '../types.js';
-import { ILogger } from '../logger/logger.interface.js';
+import { TYPES } from '../types';
+import { ILogger } from '../logger/logger.interface';
 import 'reflect-metadata';
-import { IUserController } from './user.controller.interface.js';
+import { IUserController } from './user.controller.interface';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -18,7 +18,7 @@ export class UserController extends BaseController implements IUserController {
 	}
 
 	login(req: Request, res: Response, next: NextFunction): void {
-		//this.ok(res, {user: 'test'});
+		//this.ok(res, { user: 'test' });
 		next(new HttpError(401, 'Auth error', 'login'));
 	}
 

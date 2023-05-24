@@ -1,11 +1,11 @@
 import express, { Express } from 'express';
 import { Server } from 'http';
 import { inject, injectable } from 'inversify';
-import { TYPES } from './types.js';
-import { ILogger } from './logger/logger.interface.js';
-import { IExceptionFilter } from './errors/exception.filter.interface.js';
+import { TYPES } from './types';
+import { ILogger } from './logger/logger.interface';
+import { IExceptionFilter } from './errors/exception.filter.interface';
 import 'reflect-metadata';
-import { IUserController } from './users/user.controller.interface.js';
+import { IUserController } from './users/user.controller.interface';
 
 @injectable()
 export class App {
