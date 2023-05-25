@@ -11,9 +11,9 @@ export class ConfigService implements IConfigService {
 	constructor(@inject(TYPES.ILogger) private loggerService: ILogger) {
 		const result: DotenvConfigOutput = config();
 		if (result.error) {
-			this.loggerService.error('Error while reading .env or file is absent');
+			this.loggerService.error('[ConfigService] Error while reading .env or file is absent');
 		} else {
-			this.loggerService.log('Configuration from .env was loaded');
+			this.loggerService.log('[ConfigService] Configuration from .env was loaded');
 			this.config = result.parsed as DotenvParseOutput;
 		}
 	}
