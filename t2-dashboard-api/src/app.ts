@@ -5,7 +5,7 @@ import { TYPES } from './types';
 import { ILogger } from './logger/logger.interface';
 import { IExceptionFilter } from './errors/exception.filter.interface';
 import 'reflect-metadata';
-import { IUserController } from './users/user.controller.interface';
+import { IUserController } from './users/controller/user.controller.interface';
 
 @injectable()
 export class App {
