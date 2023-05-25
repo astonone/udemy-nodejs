@@ -1,4 +1,4 @@
-import { BaseController } from '../../common/base.controller';
+import { BaseController } from '../../common/controller/base.controller';
 import { NextFunction, Request, Response } from 'express';
 import { HttpError } from '../../errors/http-error.class';
 import { inject, injectable } from 'inversify';
@@ -9,6 +9,7 @@ import { IUserController } from './user.controller.interface';
 import { UserLoginDto } from '../dto/user-login.dto';
 import { UserRegisterDto } from '../dto/user-register.dto';
 import { IUserService } from '../service/user.service.interface';
+import { ValidateMiddleware } from '../../common/middleware/validate.middleware';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -18,7 +19,12 @@ export class UserController extends BaseController implements IUserController {
 	) {
 		super(loggerService);
 		this.bindRoutes([
-			{ path: '/register', method: 'post', func: this.register },
+			{
+				path: '/register',
+				method: 'post',
+				func: this.register,
+				middlewares: [new ValidateMiddleware(UserRegisterDto)],
+			},
 			{ path: '/login', method: 'post', func: this.login },
 		]);
 	}
