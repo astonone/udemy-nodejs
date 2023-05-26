@@ -24,21 +24,28 @@ export class UserController extends BaseController implements IUserController {
 				func: this.register,
 				middlewares: [new ValidateMiddleware(UserRegisterDto)],
 			},
-			{ path: '/login', method: 'post', func: this.login },
+			{
+				path: '/login',
+				method: 'post',
+				func: this.login,
+				middlewares: [new ValidateMiddleware(UserLoginDto)],
+			},
 		]);
 	}
 
-	login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): void {
-		console.log(req.body);
-		//this.ok(res, { user: 'test' });
-		next(new HttpError(401, 'Auth error', 'login'));
+	async login(req: Request<{}, {}, UserLoginDto>, res: Response, next: NextFunction): Promise<void> {
+		const result = await this.userService.validateUser(req.body);
+		if (!result) {
+			return next(new HttpError(401, 'Auth error, email or password are incorrect', 'User login'));
+		}
+		this.ok(res, {});
 	}
 
 	async register({ body }: Request<{}, {}, UserRegisterDto>, res: Response, next: NextFunction): Promise<void> {
 		const result = await this.userService.createUser(body);
 		if (!result) {
-			return next(new HttpError(422, 'User already exists'));
+			return next(new HttpError(422, 'User already exists', 'User registration'));
 		}
-		this.ok(res, result);
+		this.ok(res, { id: result.id, email: result.email, name: result.name });
 	}
 }
