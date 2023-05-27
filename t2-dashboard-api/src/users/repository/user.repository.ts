@@ -19,10 +19,18 @@ export class UserRepository implements IUserRepository {
 		});
 	}
 
-	async find(email: string): Promise<UserModel | null> {
+	async findByEmail(email: string): Promise<UserModel | null> {
 		return this.prismaService.client.userModel.findFirst({
 			where: {
 				email,
+			},
+		});
+	}
+
+	async findById(userId: number): Promise<UserModel | null> {
+		return this.prismaService.client.userModel.findFirst({
+			where: {
+				id: userId,
 			},
 		});
 	}

@@ -19,7 +19,7 @@ export class UserService implements IUserService {
 		const newUser = new User(email, name);
 		const salt = this.configService.get('SALT');
 		await newUser.setPassword(password, Number(salt));
-		const existedUser = await this.userRepository.find(email);
+		const existedUser = await this.userRepository.findByEmail(email);
 		if (existedUser) {
 			return null;
 		}
@@ -27,11 +27,15 @@ export class UserService implements IUserService {
 	}
 
 	async validateUser({ email, password }: UserLoginDto): Promise<boolean> {
-		const existedUser = await this.userRepository.find(email);
+		const existedUser = await this.userRepository.findByEmail(email);
 		if (!existedUser) {
 			return false;
 		}
 		const newUser = new User(existedUser?.email, existedUser?.name, existedUser.password);
 		return newUser.comparePassword(password);
+	}
+
+	async getUserById(userId: number): Promise<UserModel | null> {
+		return this.userRepository.findById(userId);
 	}
 }

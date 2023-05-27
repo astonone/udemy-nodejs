@@ -4,4 +4,5 @@ export interface IUserController {
 	readonly router: Router;
 	login: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 	register: (req: Request, res: Response, next: NextFunction) => Promise<void>;
+	getById: (req: Request, res: Response, next: NextFunction) => Promise<void>;
 }
