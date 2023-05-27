@@ -1,6 +1,6 @@
 import { IUserService } from './user.service.interface';
 import { UserRegisterDto } from '../dto/user-register.dto';
-import { User } from '../user.entity';
+import { User } from '../entity/user.entity';
 import { UserLoginDto } from '../dto/user-login.dto';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../../types';
